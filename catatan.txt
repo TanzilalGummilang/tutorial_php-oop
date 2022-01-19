@@ -1,0 +1,147 @@
+(*) episode02 
+class :
+- blueprint/template untuk membuat instance dari oject
+- class mendefinisikan object
+- menyimpan data dan prilaku yg disebut 'property' dan 'method'
+
+object :
+- instance yg didefinisikan oleh class
+- bisa membuat banyak object dari 1 class
+- object dibuat dgn menggunakan keyword 'new'
+
+(*) episode03
+property :
+- merepresetasikan data / keadaan dari sebuah objek
+- variabel yg ada didalam objek (member variable)
+- sama seperti variabel dalam php, tapi ditambah dgn visibility didepannya (public, private, protected)
+
+method :
+- merepresentasikan perilaku dari objek
+- function didalam objek
+- sama seperti variabel dalam php, tapi ditambah dgn visibility didepannya
+
+* value property bisa langsung di definisikan secara default di propertynya, atau bisa ditimpa setelah menuliskan objectnya
+* bahkan bisa menambahkan property baru setelah objeknya di instansiasi
+* visibilty penting, agar tidak bisa sembarangan nambah property
+
+(*) eps04
+constructor :
+- method special didalam class, karena otomatis dijalankan ketika class di instansiasi
+
+(*) eps05
+object-type
+
+(*) eps06 & eps07
+inheritance
+- menciptakan hierarki antar kelas (parent & child) 
+- child class, mewarisi semua property dan method dari parentnya (yg visible)
+- child class, memperluas (extends) fungsionalitas dari parentnya
+
+(*) eps08
+overriding:
+- istilah membuat method di child class dgn nama yg sama pd method parentnya
+- istilah lainya, method di child class mengambil alih atau menimpa si method parent
+- mengapa membuat ini alasannya, karena kita akan melakukan fungsionalitas yg sama tapi dgn beberapa keadaan yg berbeda
+
+(*) eps09
+visibilty / access modifier :
+- konsep yg digunakan utk mengatur akses dari property dan method pd sebuah objek
+
+- ada 3 keyword: public, protected, private
+-- public: dapat digunakan dan diakses dimana saja, bahkan diluar kelas itu sendiri
+-- protected: hanya bisa digunakan didalam sebuah kelas beserta turunannya
+-- private: hanya dapat digunakan didalam kelas tertentu saja
+
+- alasan penerapan visibility:
+-- hanya memperlihatkan aspek dari class yg dibutuhkan oleh 'client'
+-- menentukan kebutuhan yg jelas utk objek
+-- memberi kendali pd kode utk menghindari 'bug'
+
+(*) eps10 | setter dan getter (accessor modifier) 
+- penjaleasan alasan penerapan:
+--utk menghidari ketika kita membuat sebuah property dgn visibility public, karena kita sebaiknya tidak membiarkan bagian dari luar kelas kita bisa mengakses property secara langsung, nah utk itu kita harus ubah visibilitynya jadi protected atau private tergantung dari desain kita. nah setelah kita mengubah visibilitynya jadi protected atau private, artinya kita tidak punya akses secara langsung jika kita mau mendapatkan isi dari property atau men-set nilai baru ke property. nah utk itulah kita perlu sebuah method utk bisa membaca atau melihat isi property ataupun mengubah isinya. nah method itu kita sebut setter dan getter (method utk nge-set dan method utk nge-get)
+- bisa pake magic method: __set() atau __get()
+
+(*) eps11 | static keyword
+- class merupakan template dari object
+- kita bisa mengakses property dan method dalam konteks class, maksudnya kita bisa mengakses property dan method tanpa menginstansiasi dari class tersebut 
+- kita bisa membuat static property dan static method, agar kita bisa akses pd konteks class
+
+static keyword:
+- $this-> hanya utk object yg di instansiasi, jadi utk static pake self::
+- member yg terikat class, bukan dgn object
+- nilai static selalu tetap meskipun object di-instansiasi berulang kali
+- membuat kode menjadi 'procedural, karena kita bisa memanggil property dan method lewat classnya tanpa instansiasi
+- biasanya digunakan utk membuat fungsi bantuan / helper
+- atau digunakan di class-class utility pd framework
+
+(*) eps12 | constant
+- adalah sebuah indetifier untuk menyimpan nilai dan nilainya tidak dapat berubah
+- bisa pake define() atau const
+- saat isi parameter nama constant biasakan huruf besar semua
+- pd konsep oop, define() tidak bisa disimpan ke dalam class dan harus di taro di luar class sebagai constant global
+- pd konsep oop, const bisa disimpan ke class
+
+magic constant:
+- __LINE__ 		: menampilkan baris dimana magic constant ini dipanggil
+- __FILE__ 		: menampilkan alamat file constant ini dipanggil
+- __DIR__		: 
+- __FUNCTION__
+- __CLASS__
+- __TRAIT__
+- __METHOD__
+- __NAMESPACE__
+
+(*) eps13
+abstrack class: 
+- class yg tidak bisa di instansiasi
+- mendefinisikan interface utk kelas lain yg menjadi turunannya
+- berperan sebagai 'kerangka dasar' utk kelas turunannya
+- memiliki minimal 1 method abstract
+- digunakan dalam 'pewarisan' / inheritance utk 'memaksakan' implementasi method abstrak yg sama utk semua kelas turunannya
+- sebuah kelas turunan, harus mengimplementasikan method abstrak yg ada dikelas abstraknya
+- kelas abstrak boleh memiliki property / method reguler
+- kelas abstrak boleh memiliki property / method static
+
+alasan penerapan:
+- merepresentasikan ide atau konsep dasar
+- "composition over inheritance"
+- salah satu cara menerapkan polimorphism
+- sentralisasi logic
+- mempermudah pengerjaan tim
+
+kalo nanti kita tidak akan pernah meng-instansiasi class product maks bisa dijadikan class abstract. ini merupakan keputusan perancangan atau keputusan desain, bukan masalah benar atau salah dalam pembuatan class absract ini.
+
+(*) eps15
+interface:
+- class abstract yg sama sekali tidak memiliki implementasi
+- murni merupakan template utk kelas turunannya (tidak ada implementasinya)
+- tidak boleh memiliki property, hanya deklarasi method saja
+- semua method harus di implementasikan public
+- boleh mendeklarasikan __construct()
+- satu class boleh mengimplementasikan banyak interface
+- dgn menggunakan type-hinting dapat melakukan 'Dependency Injection'
+- pd akhirnya akan mencapai 'polimorphism'
+
+(*) eps16
+autoloading:
+- memanggil class (file) tanpa harus menggunakan 'require'
+- biasanya 1 class ditulis dalam 1 file
+
+spl_autoload_register:
+- spl = standard php library
+- untuk manggil file (autoload semua class)
+
+(*) eps17
+namespace:
+- atau encapsulation
+- cara utk mengelompokan program ke dalam package tersendiri
+
+alasan:
+- php tidak mengijinkan kita utk memiliki 2 class dgn nama yg sama
+- tidak masalah jika bekerja sendiri karena sudah tau nama classnya 
+
+* namespace vendor\Namespace\subNamespace;
+* explode() = utk memecah string berdasarkan pemisah tertentu dan menghasilkan array
+* \ = escape character
+* use = utk memakai namespace yg akan dipakai (alias)
